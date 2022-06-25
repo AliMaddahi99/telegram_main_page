@@ -21,14 +21,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: const LoginPage(),
       theme: MyTheme.light,
       darkTheme: MyTheme.dark,
       initialRoute: "/login",
       getPages: [
         GetPage(
           name: "/login",
-          page: () => LoginPage(),
+          page: () => const LoginPage(),
         ),
         GetPage(
           name: "/home",
