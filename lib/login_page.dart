@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:telegram_main_page/controllers/controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class _LoginPageState extends State<LoginPage> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
-  final Controller controller = Controller();
+  bool isEmail = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onChanged: (text) {
                   setState(() {
-                    controller.isValidEmail = GetUtils.isEmail(text);
+                    isEmail = GetUtils.isEmail(text);
                   });
                 },
               ),
@@ -81,9 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                   minimumSize: const Size(double.infinity, 50.0),
                   primary: Theme.of(context).colorScheme.secondary,
                 ),
-                onPressed: controller.isEmail.value
+                // onPressed: controller.isEmail.value
+                onPressed: isEmail
                     ? () {
-                        print("(onPressed) ${controller.isEmail.value}");
                         if (GetUtils.isEmail(_emailTextController.text) &&
                             _emailTextController.text == "ali@gmail.com" &&
                             _passwordTextController.text == "123") {
