@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 
 import 'package:telegram_main_page/controllers/controller.dart';
 
-import 'package:telegram_main_page/home_page.dart';
-import 'package:telegram_main_page/login_page.dart';
+import 'package:telegram_main_page/screens/home_page.dart';
+import 'package:telegram_main_page/screens/login_page.dart';
+
 import 'package:telegram_main_page/styles/theme_data.dart';
 
 void main() {

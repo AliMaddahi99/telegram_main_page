@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-import 'package:telegram_main_page/chat_item.dart';
-import 'package:telegram_main_page/drawer_menu.dart';
+import 'package:telegram_main_page/widgets/chat_item.dart';
+import 'package:telegram_main_page/widgets/drawer_menu.dart';
 
 import 'package:telegram_main_page/data/chat_data.dart';
 
