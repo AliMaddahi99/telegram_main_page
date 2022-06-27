@@ -2,18 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  LoginPage({Key? key}) : super(key: key);
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
-  bool isEmail = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,69 +29,76 @@ class _LoginPageState extends State<LoginPage> {
                 height: 50.0,
               ),
 
-              // Email Text Field
-              TextField(
-                controller: _emailTextController,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    // Email TextField
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: TextFormField(
+                        controller: _emailTextController,
+                        decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
+                          hintText: "Email",
+                        ),
+                        validator: (value) {
+                          if (!GetUtils.isEmail(value!)) {
+                            return "Please enter your email";
+                          }
+                          if (value != "ali@gmail.com") {
+                            return "Email is not correct";
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  hintText: "Email",
-                ),
-                onChanged: (text) {
-                  setState(() {
-                    isEmail = GetUtils.isEmail(text);
-                  });
-                },
-              ),
 
-              const SizedBox(
-                height: 10.0,
-              ),
-
-              // Password Text Field
-              TextField(
-                controller: _passwordTextController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Password",
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
+                    // Password TextField
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: TextFormField(
+                        controller: _passwordTextController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: "Password",
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your password";
+                          }
+                          if (value != "123") {
+                            return "Password is not correct";
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                ),
-              ),
 
-              const SizedBox(
-                height: 10.0,
-              ),
-
-              // Login Button
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50.0),
-                  primary: Theme.of(context).colorScheme.secondary,
-                ),
-                // onPressed: controller.isEmail.value
-                onPressed: isEmail
-                    ? () {
-                        if (GetUtils.isEmail(_emailTextController.text) &&
-                            _emailTextController.text == "ali@gmail.com" &&
-                            _passwordTextController.text == "123") {
+                    // Login Button
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50.0),
+                        primary: Theme.of(context).colorScheme.secondary,
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
                           Get.toNamed("/home");
-                        } else {
-                          Get.snackbar(
-                            "WRONG",
-                            "Email or Password is not correct!",
-                            backgroundColor: Colors.red,
-                          );
                         }
-                      }
-                    : null,
-                child: const Text("Login"),
+                      },
+                      child: const Text("Login"),
+                    ),
+                  ],
+                ),
               ),
 
               const SizedBox(
